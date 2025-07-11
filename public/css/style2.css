@@ -1,0 +1,135 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #19597F;
+    padding: 1rem 2rem;
+}
+
+.navbar .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-circle img {
+    width: 100%;
+    height: auto;
+}
+
+.navbar-nav .nav-link,
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.active {
+    color: #fff !important;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-left: 1rem;
+}
+
+.navbar-nav .nav-link.active {
+    font-weight: bold;
+    text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.main {
+    text-align: center;
+    margin: 60px auto;
+    max-width: 600px;
+}
+
+.card-schedule {
+    background-color: #f2f2f2;
+    border-radius: 12px;
+    padding: 10px 20px;
+    margin: 20px;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-checkin {
+    background-color: #155791;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 8px 24px;
+    border: none;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
+}
+
+.icon-box {
+    background-color: #f2f2f2;
+    border-radius: 12px;
+    padding: 1.2rem 1rem;
+    margin: 0.8rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    width: 130px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.icon-box:hover {
+    transform: translateY(-4px);
+}
+
+.icon-box i {
+    font-size: 30px;
+    color: #000;
+    margin-bottom: 0.5rem;
+}
+
+.icon-box p {
+    font-size: 15px;
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+}
+
+footer {
+    background-color: #19597F;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Biar form dan button logout sejajar kayak link lain */
+.navbar-nav form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-nav form .nav-link {
+    display: inline;
+    background: none;
+    border: none;
+    color: #fff !important;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-left: 1rem;
+    cursor: pointer;
+    box-shadow: none;
+    padding: 0;
+}
+.navbar-nav form .nav-link:focus,
+.navbar-nav form .nav-link:hover {
+    color: #fff !important;
+    text-decoration: underline;
+    background: none;
+    outline: none;
+}
