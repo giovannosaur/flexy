@@ -29,14 +29,25 @@ class AttendanceController extends Controller
         $activeSchedule = $flexy ?: $default;
         $scheduleId = $activeSchedule?->id;
 
+        if ($activeSchedule) {
+            // Gabung tanggal + jam start & end jadi waktu penuh
+            $startTime = \Carbon\Carbon::parse($activeSchedule->meeting_date . ' ' . $activeSchedule->start_time);
+            $endTime = \Carbon\Carbon::parse($activeSchedule->meeting_date . ' ' . $activeSchedule->end_time);
+            $now = \Carbon\Carbon::now();
+        
+            // Cek apakah waktu sekarang di luar jam kerja
+            if ($now->lt($startTime) || $now->gt($endTime)) {
+                return back()->with('error', 'Absen hanya bisa dilakukan pada jam kerja sesuai jadwal!');
+            }
+        }
 
         Attendance::create([
             'id' => Str::uuid(),
             'user_id' => $user->id,
             'schedule_id' => $scheduleId,
             'location_coordinates' => $request->input('location_coordinates', '-'),
-        ]);        
-
+        ]);
+        
         return back()->with('success', 'Absensi berhasil!');
     }
 

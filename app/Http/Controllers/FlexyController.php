@@ -52,4 +52,15 @@ class FlexyController extends Controller
     
         return back()->with('success', 'Request Flexy berhasil diajukan!');
     }    
+
+    public function history() {
+        $user = auth()->user();
+    
+        $requests = \App\Models\FlexyRequest::where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->get();
+    
+        return view('flexy.history', compact('requests'));
+    }
+    
 }

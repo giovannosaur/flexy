@@ -10,6 +10,7 @@
       <a class="nav-link" href="{{ route('flexy.request') }}">FLEXY TIME</a>
       <a class="nav-link" href="{{ route('schedule.index') }}">SCHEDULE</a>
       <a class="nav-link" href="{{ route('history') }}">HISTORY</a>
+
       <form action="{{ route('logout') }}" method="POST" class="d-inline m-0 p-0">
         @csrf
         <a href="#" class="nav-link" style="color:#fff; font-weight:500; text-transform:uppercase;"

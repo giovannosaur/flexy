@@ -75,7 +75,7 @@
             <i class="bi bi-calendar2-check-fill"></i>
             <p>Schedule</p>
         </a>
-        <a href="{{ route('changed.schedule') }}" class="icon-box text-decoration-none">
+        <a href="{{ route('history') }}" class="icon-box text-decoration-none">
             <i class="bi bi-clipboard-data"></i>
             <p>Riwayat <br>Pengajuan Flexy</p>
         </a>
