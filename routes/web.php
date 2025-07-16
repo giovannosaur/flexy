@@ -7,6 +7,7 @@ use App\Http\Controllers\FlexyController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ApprovalController;
+use App\Http\Controllers\AdminAbsensiController;
 
 Route::get('/', function () {
     return view('welcome');

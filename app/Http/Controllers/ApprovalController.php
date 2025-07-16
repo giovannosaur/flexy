@@ -13,9 +13,16 @@ class ApprovalController extends Controller
 
         // Filter bawahan sesuai level
         $user = auth()->user();
-        $bawahan = $user->role == 'Level 2' ? ['Level 1'] : ['Level 2', 'Level 1'];
-        $userIds = User::whereIn('role', $bawahan)->pluck('id');
 
+        if ($user->role == 'Level 2') {
+            $bawahan = ['Level 1'];
+            $userIds = User::whereIn('role', $bawahan)->pluck('id');
+        } else { // Level 3
+            $bawahan = ['Level 2', 'Level 1'];
+            $userIds = User::whereIn('role', $bawahan)->pluck('id')->toArray();
+            $userIds[] = $user->id;
+        }
+        
         $query = FlexyRequest::with('user')
             ->whereIn('user_id', $userIds);
 
@@ -36,13 +43,13 @@ class ApprovalController extends Controller
         $req = FlexyRequest::findOrFail($id);
         if($req->status != 'pending') return back()->with('error', 'Sudah di-approve/deny.');
     
-        // Ubah status
+        //ubah status
         $req->status = 'accepted';
         $req->approved_by = auth()->id();
         $req->approved_at = now();
         $req->save();
     
-        // Cek sudah ada schedule flexy? (harusnya belum)
+        // Cek sudah ada schedule flexy?
         $sudahAda = \App\Models\Schedule::where('user_id', $req->user_id)
             ->where('meeting_date', $req->requested_date)
             ->where('type', 'flexy')
@@ -60,7 +67,6 @@ class ApprovalController extends Controller
                 'type' => 'flexy',
             ]);
         }
-        // =====================================================
     
         return back()->with('success', 'Request telah di-approve dan schedule flexy otomatis dibuat!');
     }    
