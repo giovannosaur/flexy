@@ -41,6 +41,56 @@ class DummyUserSeeder extends Seeder
                 'position' => 'PDTI',
                 'role' => 'Level 3'
             ],
+            [
+                'id' => 'S004',
+                'name' => 'Bima Dummy',
+                'email' => 'bima@flexy.com',
+                'password' => bcrypt('password'),
+                'nik' => '327600004',
+                'status' => 'Active',
+                'position' => 'Staff',
+                'role' => 'Level 1'
+            ],
+            [
+                'id' => 'S005',
+                'name' => 'Citra Dummy',
+                'email' => 'citra@flexy.com',
+                'password' => bcrypt('password'),
+                'nik' => '327600005',
+                'status' => 'Active',
+                'position' => 'Staff',
+                'role' => 'Level 1'
+            ],
+            [
+                'id' => 'S006',
+                'name' => 'Deni Dummy',
+                'email' => 'deni@flexy.com',
+                'password' => bcrypt('password'),
+                'nik' => '327600006',
+                'status' => 'Active',
+                'position' => 'Staff',
+                'role' => 'Level 1'
+            ],
+            [
+                'id' => 'S007',
+                'name' => 'Eva Dummy',
+                'email' => 'eva@flexy.com',
+                'password' => bcrypt('password'),
+                'nik' => '327600007',
+                'status' => 'Active',
+                'position' => 'Staff',
+                'role' => 'Level 1'
+            ],
+            [
+                'id' => 'S008',
+                'name' => 'Fikri Dummy',
+                'email' => 'fikri@flexy.com',
+                'password' => bcrypt('password'),
+                'nik' => '327600008',
+                'status' => 'Active',
+                'position' => 'Staff',
+                'role' => 'Level 1'
+            ],
         ];
 
         foreach ($data as $user) {

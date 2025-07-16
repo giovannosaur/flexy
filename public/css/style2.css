@@ -1,11 +1,12 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: "Segoe UI", sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #fff;
 }
 
 .navbar {
-    background-color: #19597F;
+    background-color: #19597f;
     padding: 1rem 2rem;
 }
 
@@ -30,11 +31,8 @@ body {
     height: auto;
 }
 
-.navbar-nav .nav-link,
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link:focus,
-.navbar-nav .nav-link.active {
-    color: #fff !important;
+.navbar-nav .nav-link {
+    color: white !important;
     font-weight: 500;
     text-transform: uppercase;
     margin-left: 1rem;
@@ -42,21 +40,28 @@ body {
 
 .navbar-nav .nav-link.active {
     font-weight: bold;
-    text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .main {
     text-align: center;
-    margin: 60px auto;
+    margin: 120px auto;
     max-width: 600px;
+    font-family: "Verdana";
 }
 
 .card-schedule {
-    background-color: #f2f2f2;
+    background-color: #f1f1f1;
     border-radius: 12px;
-    padding: 10px 20px;
-    margin: 20px;
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-top: 40px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.time-option {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .btn-checkin {
@@ -66,15 +71,15 @@ body {
     border-radius: 20px;
     padding: 8px 24px;
     border: none;
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .icon-box {
-    background-color: #f2f2f2;
+    background-color: #f1f1f1;
     border-radius: 12px;
     padding: 1.2rem 1rem;
-    margin: 0.8rem;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem 0.62rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     display: inline-block;
     width: 130px;
     text-align: center;
@@ -99,37 +104,10 @@ body {
 }
 
 footer {
-    background-color: #19597F;
+    background-color: #19597f;
     color: white;
     position: fixed;
     bottom: 0;
     width: 100%;
     z-index: 1000;
-}
-
-/* Biar form dan button logout sejajar kayak link lain */
-.navbar-nav form {
-    display: inline;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar-nav form .nav-link {
-    display: inline;
-    background: none;
-    border: none;
-    color: #fff !important;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin-left: 1rem;
-    cursor: pointer;
-    box-shadow: none;
-    padding: 0;
-}
-.navbar-nav form .nav-link:focus,
-.navbar-nav form .nav-link:hover {
-    color: #fff !important;
-    text-decoration: underline;
-    background: none;
-    outline: none;
 }

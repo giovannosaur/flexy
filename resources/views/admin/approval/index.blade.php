@@ -9,10 +9,17 @@
         padding: 0.4rem 1rem;
         font-size: 0.9rem;
         margin-top: 2rem;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-    }
-    .btn-all { background: #155791; color: #fff; }
-    .table td, .table th { vertical-align: middle; text-align: center; }
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      }
+    .btn-all {
+        background-color: #155791;
+        color: white;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      }
+    .table td, .table th {
+        vertical-align: middle;
+        text-align: center;
+      }
     .btn-action {
         border: none;
         padding: 0.3rem 0.6rem;
@@ -20,9 +27,18 @@
         font-size: 1rem;
         box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
-    .btn-approve { background: #28a745; color: white; margin-right: 0.4rem; }
-    .btn-deny { background: #dc3545; color: white; }
-    .btn-approve:hover, .btn-deny:hover { opacity: 0.9; }
+    .btn-approve {
+        background-color: #28a745;
+        color: white;
+        margin-right: 0.4rem;
+      }
+    .btn-deny {
+        background-color: #dc3545;
+        color: white;
+      }
+    .btn-approve:hover, .btn-deny:hover {
+        opacity: 0.9;
+      }
 </style>
 @endpush
 

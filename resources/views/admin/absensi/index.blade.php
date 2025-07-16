@@ -1,15 +1,17 @@
 @extends('layouts.app')
 
 @push('head')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
 .main {
     text-align: center;
-    margin: 30px auto;
-    padding: 2rem;
+    margin: 100px auto;
+    padding: -0.5px;
     font-family: "Verdana";
 }
 .table th, .table td { text-align: center; vertical-align: middle; }
-.date-filter-form { margin-bottom: 1.5rem; }
+.date-filter-form { margin-top: 2rem; }
 </style>
 @endpush
 
@@ -54,7 +56,7 @@
                 @endforelse
             </tbody>
         </table>
-        <div class="mt-2">
+        <div class="mt-2 d-flex justify-content-center">
             {{ $attendances->withQueryString()->links() }}
         </div>
     </div>

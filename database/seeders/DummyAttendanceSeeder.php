@@ -20,7 +20,7 @@ class DummyAttendanceSeeder extends Seeder
         }
 
         $count = 0;
-        while ($count < 15) {
+        while ($count < 30) {
             $user = $users->random();
             $tanggal = $dates->random();
 

@@ -5,36 +5,81 @@
 @section('content')
 <head>
     <style>
-        .main {
-        text-align: center;
-        margin: 30px auto;
-        max-width: 480px;
-        padding: 2rem 1rem;
-        }
+        body {
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+      }
 
-        .schedule-card {
-        background-color: #f2f2f2;
+      .navbar {
+        background-color: #19597f;
+        padding: 1rem 2rem;
+      }
+
+      .logo-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo-circle img {
+        width: 100%;
+        height: auto;
+      }
+
+      .navbar-nav .nav-link {
+        color: white !important;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin-left: 1rem;
+      }
+
+      .navbar-nav .nav-link.active {
+        font-weight: bold;
+        text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .main {
+        text-align: center;
+        margin: -2rem auto;
+        max-width: 480px;
+        font-family: "Verdana";
+        padding: 5rem 1rem;
+      }
+
+      .main h2 {
+        font-weight: bold;
+        margin-bottom: 2rem;
+      }
+
+      .schedule-card {
+        background-color: #f1f1f1;
         border-radius: 16px;
-        box-shadow: 4px 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
         padding: 1rem 1rem 2.5rem;
         margin-bottom: 1rem;
         position: relative;
         text-align: left;
-        }
+      }
 
-        .schedule-date {
+      .schedule-date {
         font-weight: bold;
         font-size: 1rem;
         margin-bottom: 0.5rem;
-        }
+      }
 
-        .schedule-time {
+      .schedule-time {
         font-weight: bold;
-        font-size: 1.3rem;
+        font-size: 1.5rem;
         text-align: center;
-        }
+      }
 
-        .badge-status {
+      .badge-status {
         position: absolute;
         right: 16px;
         bottom: 16px;
@@ -44,8 +89,16 @@
         font-weight: bold;
         padding: 4px 12px;
         border-radius: 20px;
-        box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-        }
+      }
+
+      footer {
+        background-color: #19597f;
+        color: white;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 1000;
+      }
     </style>
 </head>
 <div class="main">
