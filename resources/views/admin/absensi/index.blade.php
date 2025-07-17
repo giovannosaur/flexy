@@ -27,7 +27,7 @@
         @endif
     </form>
 
-    <div class="table-responsive">
+    <div>
         <table class="table table-bordered align-middle">
             <thead class="table-light">
                 <tr>
