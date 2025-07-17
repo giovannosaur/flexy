@@ -11,39 +11,46 @@ use Illuminate\Support\Str;
 class DashboardController extends Controller
 {
     public function index()
-    {
-        $user = Auth::user();
-        $today = now()->toDateString();
+{
+    $user = Auth::user();
+    $today = now()->toDateString();
 
-        // Cari schedule flexy user
-        $flexy = Schedule::where('user_id', $user->id)
-            ->where('type', 'flexy')
-            ->whereDate('meeting_date', $today)
-            ->first();
+    $flexy = \App\Models\Schedule::where('user_id', $user->id)
+        ->where('type', 'flexy')
+        ->whereDate('meeting_date', $today)
+        ->first();
 
-        // Kalau ga ada, fallback ke default (user_id null)
-        $default = Schedule::whereNull('user_id')
-            ->where('type', 'default')
-            ->whereDate('meeting_date', $today)
-            ->first();
+    $default = \App\Models\Schedule::whereNull('user_id')
+        ->where('type', 'default')
+        ->whereDate('meeting_date', $today)
+        ->first();
 
-        $activeSchedule = $flexy ?: $default;
+    $activeSchedule = $flexy ?: $default;
 
+    if (!$activeSchedule) {
+        // HARI INI GAK ADA JADWAL (libur, sabtu, minggu, dll)
         $scheduleInfo = [
             'date' => now()->translatedFormat('D, d M Y'),
-            'time' => $activeSchedule ? ($activeSchedule->start_time . ' - ' . $activeSchedule->end_time) : '08.00 - 17.00',
-            'id'   => $activeSchedule?->id,
+            'time' => null,
+            'id'   => null
         ];
-
-
-        // Cek udah absen belum hari ini
-        $alreadyCheckedIn = Attendance::where('user_id', $user->id)
-            ->whereDate('created_at', now()->toDateString())
-            ->exists();
-
-        return view('dashboard', [
-            'todaySchedule'    => $scheduleInfo,
-            'alreadyCheckedIn' => $alreadyCheckedIn,
-        ]);
+    } else {
+        // ADA JADWAL
+        $scheduleInfo = [
+            'date' => now()->translatedFormat('D, d M Y'),
+            'time' => $activeSchedule->start_time . ' - ' . $activeSchedule->end_time,
+            'id'   => $activeSchedule->id,
+        ];
     }
+
+    // Cek udah absen belum hari ini
+    $alreadyCheckedIn = \App\Models\Attendance::where('user_id', $user->id)
+        ->whereDate('created_at', now()->toDateString())
+        ->exists();
+
+    return view('dashboard', [
+        'todaySchedule'    => $scheduleInfo,
+        'alreadyCheckedIn' => $alreadyCheckedIn,
+    ]);
+}
 }

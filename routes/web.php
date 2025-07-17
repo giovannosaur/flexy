@@ -10,7 +10,10 @@ use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\AdminAbsensiController;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
 });
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
