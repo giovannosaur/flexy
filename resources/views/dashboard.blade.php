@@ -32,42 +32,73 @@
             <strong>Working Schedule</strong>
             <strong>{{ $todaySchedule['date'] }}</strong>
         </div>
-        
+
         @if ($todaySchedule['id'])
-            <h3>{{ $todaySchedule['time'] }}</h3>
-            <form method="POST" action="{{ route('checkin') }}" id="checkin-form">
-                @csrf
-                <input type="hidden" name="location_coordinates" id="location_coordinates">
-                <button class="btn-checkin mt-2" {{ $alreadyCheckedIn ? 'disabled' : '' }}>
-                    {{ $alreadyCheckedIn ? 'SUDAH ABSEN' : 'CHECK IN' }}
-                </button>
-            </form>
-            @push('scripts')
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const form = document.getElementById('checkin-form');
-                    if(form){
-                        form.addEventListener('submit', function(e){
-                            e.preventDefault();
-                            if (navigator.geolocation) {
-                                navigator.geolocation.getCurrentPosition(function(position) {
-                                    let coords = position.coords.latitude + ',' + position.coords.longitude;
-                                    document.getElementById('location_coordinates').value = coords;
-                                    form.submit();
-                                }, function(error){
-                                    alert('Gagal mendapatkan lokasi. Coba lagi.');
-                                });
-                            } else {
-                                alert('Geolocation tidak didukung browser.');
-                            }
-                        });
-                    }
-                });
-            </script>
-            @endpush
+            @if(!$attendanceToday)
+                {{-- BELUM CHECK-IN --}}
+                <h3>{{ $todaySchedule['time'] }}</h3>
+                <form method="POST" action="{{ route('checkin') }}" id="checkin-form">
+                    @csrf
+                    <input type="hidden" name="location_coordinates" id="location_coordinates">
+                    <button class="btn-checkin mt-2">CHECK IN</button>
+                </form>
+                @push('scripts')
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const form = document.getElementById('checkin-form');
+                        if(form){
+                            form.addEventListener('submit', function(e){
+                                e.preventDefault();
+                                if (navigator.geolocation) {
+                                    navigator.geolocation.getCurrentPosition(function(position) {
+                                        let coords = position.coords.latitude + ',' + position.coords.longitude;
+                                        document.getElementById('location_coordinates').value = coords;
+                                        form.submit();
+                                    }, function(error){
+                                        alert('Gagal mendapatkan lokasi. Coba lagi.');
+                                    });
+                                } else {
+                                    alert('Geolocation tidak didukung browser.');
+                                }
+                            });
+                        }
+                    });
+                </script>
+                @endpush
+
+            @elseif($attendanceToday && !$attendanceToday->checkout_time)
+                {{-- SUDAH CHECK-IN, BELUM CHECK-OUT --}}
+                <div class="alert alert-success mb-2">
+                    Sudah check-in: {{ \Carbon\Carbon::parse($attendanceToday->checkin_time)->format('H:i') }}<br>
+                    Status: 
+                    @if($attendanceToday->status == 'late')
+                        <span class="badge bg-danger">LATE</span>
+                    @else
+                        <span class="badge bg-success">TEPAT</span>
+                    @endif
+                </div>
+                <form method="POST" action="{{ route('checkout') }}">
+                    @csrf
+                    <button class="btn-checkin mt-2">CHECK OUT</button>
+                </form>
+            @else
+                {{-- SUDAH CHECK-IN & CHECK-OUT --}}
+                <div class="alert alert-info">
+                    Sudah check-in: {{ \Carbon\Carbon::parse($attendanceToday->checkin_time)->format('H:i') }}<br>
+                    Sudah check-out: {{ \Carbon\Carbon::parse($attendanceToday->checkout_time)->format('H:i') }}<br>
+                    Status:
+                    @if($attendanceToday->status == 'late')
+                        <span class="badge bg-danger">LATE</span>
+                    @elseif($attendanceToday->status == 'early_leave')
+                        <span class="badge bg-warning">EARLY LEAVE</span>
+                    @else
+                        <span class="badge bg-success">TEPAT</span>
+                    @endif
+                </div>
+            @endif
         @else
             <div class="alert alert-info mt-3">
-                Hari ini libur atau tidak ada jadwal
+                Hari ini libur atau tidak ada jadwal, check-in tidak tersedia 😎
             </div>
         @endif
     </div>

@@ -24,6 +24,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/checkin', [AttendanceController::class, 'checkin'])->name('checkin');
+    Route::post('/checkout', [AttendanceController::class, 'checkout'])->name('checkout');
 
     // Flexy
     Route::get('/flexy/request', [FlexyController::class, 'create'])->name('flexy.request');

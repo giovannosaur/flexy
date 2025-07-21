@@ -27,31 +27,79 @@ class AttendanceController extends Controller
             ->first();
 
         $activeSchedule = $flexy ?: $default;
-        $scheduleId = $activeSchedule?->id;
 
-        if ($activeSchedule) {
-            // Gabung tanggal + jam start & end jadi waktu penuh
-            $startTime = \Carbon\Carbon::parse($activeSchedule->meeting_date . ' ' . $activeSchedule->start_time);
-            $endTime = \Carbon\Carbon::parse($activeSchedule->meeting_date . ' ' . $activeSchedule->end_time);
-            $now = \Carbon\Carbon::now();
-        
-            // Cek apakah waktu sekarang di luar jam kerja
-            if ($now->lt($startTime) || $now->gt($endTime)) {
-                return back()->with('error', 'Absen hanya bisa dilakukan pada jam kerja sesuai jadwal!');
-            }
+        if (!$activeSchedule) {
+            return back()->with('error', 'Hari ini tidak ada jadwal!');
+        }
+
+        // Cek sudah check-in hari ini
+        $attendance = Attendance::where('user_id', $user->id)
+            ->whereDate('checkin_time', $today)
+            ->first();
+
+        if ($attendance) {
+            return back()->with('error', 'Kamu sudah check-in hari ini!');
+        }
+
+        // Boleh check-in mulai 30 menit sebelum jam masuk
+        $startTime = \Carbon\Carbon::parse($activeSchedule->meeting_date . ' ' . $activeSchedule->start_time)->subMinutes(30);
+        $jadwalMasuk = \Carbon\Carbon::parse($activeSchedule->meeting_date . ' ' . $activeSchedule->start_time);
+        $now = \Carbon\Carbon::now();
+
+        if ($now->lt($startTime)) {
+            return back()->with('error', 'Check-in hanya boleh mulai 30 menit sebelum jam masuk!');
+        }
+
+        // Kalkulasi status TEPAT/LATE
+        $diff = $now->diffInMinutes($jadwalMasuk, false); // false = negative jika telat
+        $status = 'tepat';
+        if ($diff < -5) { // lebih dari 5 menit setelah jam masuk (telat)
+            $status = 'late';
         }
 
         Attendance::create([
-            'id' => Str::uuid(),
+            'id' => \Str::uuid(),
             'user_id' => $user->id,
-            'schedule_id' => $scheduleId,
+            'schedule_id' => $activeSchedule->id,
+            'checkin_time' => $now,
             'location_coordinates' => $request->input('location_coordinates', '-'),
+            'status' => $status,
         ]);
-        
-        return back()->with('success', 'Absensi berhasil!');
+
+        return back()->with('success', 'Check-in berhasil!');
     }
 
-    // (bonus) buat history kalau mau
+    public function checkout(Request $request)
+    {
+        $user = Auth::user();
+        $today = now()->toDateString();
+
+        $attendance = Attendance::where('user_id', $user->id)
+            ->whereDate('checkin_time', $today)
+            ->whereNull('checkout_time')
+            ->first();
+
+        if (!$attendance) {
+            return back()->with('error', 'Belum check-in atau sudah check-out hari ini!');
+        }
+
+        $activeSchedule = Schedule::find($attendance->schedule_id);
+        $jadwalPulang = \Carbon\Carbon::parse($activeSchedule->meeting_date . ' ' . $activeSchedule->end_time);
+        $now = \Carbon\Carbon::now();
+
+        // Kalkulasi status checkout: cek apakah checkout lebih awal
+        $status = $attendance->status;
+        if ($now->lt($jadwalPulang)) {
+            $status = 'early_leave';
+        }
+
+        $attendance->checkout_time = $now;
+        $attendance->status = $status;
+        $attendance->save();
+
+        return back()->with('success', 'Check-out berhasil!');
+    }
+
     public function history() {
         $history = Attendance::where('user_id', auth()->id())->latest()->get();
         return view('attendance.history', compact('history'));

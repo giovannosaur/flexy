@@ -11,17 +11,15 @@ class AdminAbsensiController extends Controller
 {
     public function index(Request $request)
     {
-        $filterDate = $request->get('date'); // YYYY-MM-DD dari date picker
-
-        $query = \App\Models\Attendance::with(['user', 'schedule']);
-
+        $filterDate = $request->get('date');
+        $perPage = $request->get('perPage', 10); // default 10, bisa custom
+    
+        $query = Attendance::with(['user', 'schedule']);
         if ($filterDate) {
-            $query->whereDate('created_at', $filterDate);
+            $query->whereDate('checkin_time', $filterDate);
         }
-
-        $attendances = $query->orderByDesc('created_at')->paginate(10); // 10 per page
-
-        return view('admin.absensi.index', compact('attendances', 'filterDate'));
-    }
-
+        $attendances = $query->orderByDesc('checkin_time')->paginate($perPage);
+    
+        return view('admin.absensi.index', compact('attendances', 'filterDate', 'perPage'));
+    }    
 }
