@@ -125,11 +125,21 @@
     </div>
     @endforeach
 </div>
+<style>
+  .btn-primary {
+    margin-bottom: 8rem;
+  }
+</style>
 
-<div class="d-flex justify-content-center my-4">
-    <a href="{{ route('absen.index') }}" class="btn btn-primary" style="border-radius: 20px; font-weight: bold;">
-        <i class="bi bi-clipboard-data"></i> Lihat Riwayat Absen
-    </a>
+<div class="d-flex justify-content-center">
+  <a href="{{ route('absen.index') }}"
+     class="btn btn-primary"
+     style="border-radius: 20px; font-weight: bold; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);">
+    <i class="bi bi-clipboard-data"></i> Lihat Riwayat Absen
+  </a>
 </div>
+
+
+
 
 @endsection
