@@ -104,4 +104,20 @@ class AttendanceController extends Controller
         $history = Attendance::where('user_id', auth()->id())->latest()->get();
         return view('attendance.history', compact('history'));
     }
+
+    public function userIndex(Request $request)
+    {
+        $user = auth()->user();
+        $filterDate = $request->get('date');
+        $perPage = $request->get('perPage', 10); // default 10
+
+        $query = Attendance::with('schedule')
+            ->where('user_id', $user->id);
+        if ($filterDate) {
+            $query->whereDate('checkin_time', $filterDate);
+        }
+        $attendances = $query->orderByDesc('checkin_time')->paginate($perPage);
+
+        return view('absen.index', compact('attendances', 'filterDate', 'perPage'));
+    }
 }

@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function() {
     // Jadwal
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
     Route::get('/history', [FlexyController::class, 'history'])->name('history');
+    Route::get('/absen', [AttendanceController::class, 'userIndex'])->name('absen.index');
 });
 
 Route::middleware(['auth', 'role:Level 2,Level 3'])->prefix('admin')->name('admin.')->group(function() {

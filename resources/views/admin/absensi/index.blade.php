@@ -34,21 +34,21 @@
 <div class="main">
     <h2><strong>Index Absen</strong></h2>
     <form method="GET" 
-      class="filter-section mb-2 d-flex align-items-baseline justify-content-center gap-2">
-  <input type="date" name="date" value="{{ $filterDate }}" />
-  <label for="perPage" class="mb-0 ms-2">Show</label>
-  <input type="number" min="1" max="100" name="perPage" id="perPage"
-         value="{{ $perPage }}" style="width:70px;">
-  <span class="me-2">entries</span>
+        class="filter-section mb-2 d-flex align-items-baseline justify-content-center gap-2">
+        <input type="date" name="date" value="{{ $filterDate }}" />
+        <label for="perPage" class="mb-0 ms-2">Show</label>
+        <input type="number" min="1" max="100" name="perPage" id="perPage"
+                value="{{ $perPage }}" style="width:70px;">
+        <span class="me-2">entries</span>
 
-  <button type="submit" class="btn btn-primary me-1">Filter</button>
-  @if($filterDate || $perPage != 10)
-    <a href="{{ route('admin.absensi') }}" 
-       class="btn btn-danger" 
-       style="border-radius: 8px;"
-    >Reset</a>
-  @endif
-</form>
+        <button type="submit" class="btn btn-primary me-1">Filter</button>
+        @if($filterDate || $perPage != 10)
+            <a href="{{ route('admin.absensi') }}" 
+            class="btn btn-danger" 
+            style="border-radius: 8px;"
+            >Reset</a>
+        @endif
+    </form>
     <div class="d-flex flex-column align-items-center">
         <table class="table table-bordered align-middle w-auto">
             <thead class="table-light">
